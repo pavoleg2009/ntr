@@ -108,7 +108,6 @@
 			isa = PBXGroup;
 			children = (
 				28A845631F98D86A006130D8 /* Assets.xcassets */,
-				28A845681F98D86A006130D8 /* Info.plist */,
 			);
 			path = "Supporting files";
 			sourceTree = "<group>";
@@ -117,6 +116,7 @@
 			isa = PBXGroup;
 			children = (
 				28A8455C1F98D86A006130D8 /* AppDelegate.swift */,
+				28A845681F98D86A006130D8 /* Info.plist */,
 			);
 			path = App;
 			sourceTree = "<group>";
@@ -336,7 +336,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 4Y4DUJVCEZ;
-				INFOPLIST_FILE = ntr/Info.plist;
+				INFOPLIST_FILE = ntr/App/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.just-eng.ntr";
@@ -352,7 +352,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 4Y4DUJVCEZ;
-				INFOPLIST_FILE = ntr/Info.plist;
+				INFOPLIST_FILE = ntr/App/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.just-eng.ntr";

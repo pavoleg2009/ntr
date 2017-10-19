@@ -20,6 +20,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var typeLabel: UILabel!
     @IBOutlet weak var phoneLabel: UILabel!
     @IBOutlet weak var statusLabel: UILabel!
+    @IBOutlet weak var addressTextView: UITextView!
     // MARK: Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,6 +45,11 @@ class ViewController: UIViewController {
         typeLabel.text = pos.type
         phoneLabel.text = pos.phone
         statusLabel.text = pos.status
+        
+        addressTextView.text = """
+        Address: \(pos.address?.street ?? "") \(pos.address?.house ?? "")
+        Coordinates (lng; lat): \(pos.address?.gps_lng ?? 0);\(pos.address?.gps_lng ?? 0)
+        """
     }
 
     
