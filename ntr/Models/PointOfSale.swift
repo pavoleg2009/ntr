@@ -37,7 +37,7 @@ class PoinfOfSale: NSObject {
     var address: Address?
     var phone: String?
     var status: String?
-    var products: [Product]?
+    var products: [String]?
     
     public init(id: String,
                 name: String,
@@ -47,7 +47,7 @@ class PoinfOfSale: NSObject {
                 address: Address?,
                 phone: String?,
                 status: String?,
-                prroducts: [Product]) {
+                products: [String]) {
         
         self.id = id
         self.name = name
@@ -60,8 +60,44 @@ class PoinfOfSale: NSObject {
     }
 }
 
+extension PoinfOfSale {
+    struct ApiKeys {
+        static let id = "id"
+        static let name = "name"
+        static let type = "type"
+        static let dateOpened = "date_opened"
+        static let dateClosed = "date_closed"
+        static let address = "address"
+        static let phone = "phone"
+        static let status = "status"
+        static let products = "products"
+    }
+}
 
-extension Character {
+extension PoinfOfSale {
+    
+    
+    
+    public convenience init?(json:[String:Any]) {
+        
+        guard
+            
+            let id = json[ApiKeys.id] as? String,
+            let name = json[ApiKeys.id] as? String,
+            let type = json[ApiKeys.id] as? String,
+            let dateOpened = PoinfOfSale.dateToStringFormatter.date(from: json[ApiKeys.id] as? String ?? ""),
+            let dateClosed = PoinfOfSale.dateToStringFormatter.date(from: json[ApiKeys.id] as? String ?? ""),
+            let address = Address(json:json[ApiKeys.id] as? [String:Any]),
+            let phone = json[ApiKeys.id] as? String,
+            let status = json[PoinfOfSale.ApiKeys.status] as? String,
+            let products = json[PoinfOfSale.ApiKeys.products] as? [String]
+            else { return nil }
+        
+        self.init(id: id, name: name, type: type, dateOpened: dateOpened, dateClosed: dateClosed, address: address, phone: phone, status: status, products: products)
+    }
+}
+
+extension PoinfOfSale {
     static let stringToDateFormatter: DateFormatter = {
         let df = DateFormatter()
         df.locale = Locale(identifier: "en_US_POSIX")
