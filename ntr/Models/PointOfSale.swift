@@ -47,7 +47,7 @@ class PoinfOfSale: NSObject {
                 address: Address?,
                 phone: String?,
                 status: String?,
-                products: [String]) {
+                products: [String]?) {
         
         self.id = id
         self.name = name
@@ -81,17 +81,18 @@ extension PoinfOfSale {
     public convenience init?(json:[String:Any]) {
         
         guard
-            
             let id = json[ApiKeys.id] as? String,
-            let name = json[ApiKeys.id] as? String,
-            let type = json[ApiKeys.id] as? String,
-            let dateOpened = PoinfOfSale.dateToStringFormatter.date(from: json[ApiKeys.id] as? String ?? ""),
-            let dateClosed = PoinfOfSale.dateToStringFormatter.date(from: json[ApiKeys.id] as? String ?? ""),
-            let address = Address(json:json[ApiKeys.id] as? [String:Any]),
-            let phone = json[ApiKeys.id] as? String,
-            let status = json[PoinfOfSale.ApiKeys.status] as? String,
-            let products = json[PoinfOfSale.ApiKeys.products] as? [String]
+            let name = json[ApiKeys.name] as? String,
+            let type = json[ApiKeys.type] as? String
             else { return nil }
+        //let dateString = json[ApiKeys.dateOpened] as? String
+        // FEXME:  date formatter
+        let dateOpened = PoinfOfSale.dateToStringFormatter.date(from: json[ApiKeys.dateOpened] as? String ?? "")
+        let dateClosed = PoinfOfSale.dateToStringFormatter.date(from: json[ApiKeys.dateClosed] as? String ?? "")
+        let address = Address(json:json[ApiKeys.address] as? [String:Any])
+        let phone = json[ApiKeys.phone] as? String
+        let status = json[PoinfOfSale.ApiKeys.status] as? String
+        let products = json[PoinfOfSale.ApiKeys.products] as? [String]
         
         self.init(id: id, name: name, type: type, dateOpened: dateOpened, dateClosed: dateClosed, address: address, phone: phone, status: status, products: products)
     }

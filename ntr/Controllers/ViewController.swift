@@ -10,17 +10,40 @@ import UIKit
 
 class ViewController: UIViewController {
     
-    let url = "https://dl.dropboxusercontent.com/s/f3x990vmoxp5gis/test.json"
+    var apiClient: ApiClient!
+    var pos: PoinfOfSale!
     
+    // MARK: Outlets
     
+    @IBOutlet weak var idLabel: UILabel!
+    @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var typeLabel: UILabel!
+    @IBOutlet weak var phoneLabel: UILabel!
+    @IBOutlet weak var statusLabel: UILabel!
+    // MARK: Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        
+        apiClient = ApiClient.shared
+        apiClient.getSearchResults { (pos, error) in
+            if let error = error, !error.isEmpty {
+                print("==== Error: \(error)")
+            }
+            
+            if let pos = pos  {
+                self.pos = pos
+                self.populateView()
+            }
+        }
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    
+    // MARK: Helpers
+    func populateView() {
+        idLabel.text = pos.id
+        nameLabel.text = pos.name
+        typeLabel.text = pos.type
+        phoneLabel.text = pos.phone
+        statusLabel.text = pos.status
     }
 
     
