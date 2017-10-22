@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MapKit
 
 class ViewController: UIViewController {
     
@@ -22,6 +23,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var statusLabel: UILabel!
     @IBOutlet weak var dateOpenedLabel: UILabel!
     @IBOutlet weak var addressTextView: UITextView!
+    @IBOutlet weak var addressMapView: MKMapView!
     // MARK: Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,11 +49,38 @@ class ViewController: UIViewController {
         phoneLabel.text = pos.phone
         statusLabel.text = pos.status
         dateOpenedLabel.text = pos.dateOpenedString
-//        print(pos.dateOpened)
+        
+        let streetAddress = "\(pos.address?.street ?? "") \(pos.address?.house ?? "")"
         addressTextView.text = """
-        Address: \(pos.address?.street ?? "") \(pos.address?.house ?? "")
-        Coordinates (lng; lat): \(pos.address?.gps_lng ?? 0);\(pos.address?.gps_lat ?? 0)
+        Address: \(streetAddress)
+        Coordinates (lng; lat): \(pos.address?.gps_lng ?? 0); \(pos.address?.gps_lat ?? 0)
         """
+        
+        if let lng: CLLocationDegrees = pos.address?.gps_lng,
+            let lat : CLLocationDegrees = pos.address?.gps_lat {
+            
+            let coordinate = CLLocationCoordinate2D(latitude: lat, longitude: lng)
+            show(coordinate, with: "\(streetAddress)", on: addressMapView)
+        }
+        
+        
+    }
+    
+    func show(_ coordinate: CLLocationCoordinate2D, with title: String, on mapView: MKMapView) {
+        //"gps_lat":56.233969,"gps_lng":43.388959
+        let annotation = MKPointAnnotation()
+        annotation.coordinate = coordinate
+        annotation.title = title
+        mapView.addAnnotation(annotation)
+        
+        mapView.mapType = .hybrid
+        let location = CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
+        let radius: CLLocationDistance = 1000
+        let region = MKCoordinateRegionMakeWithDistance(location.coordinate, radius, radius)
+        mapView.setRegion(region, animated: true)
+        
+        
+        
     }
 
     
