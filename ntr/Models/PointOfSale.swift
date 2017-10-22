@@ -85,10 +85,10 @@ extension PoinfOfSale {
             let name = json[ApiKeys.name] as? String,
             let type = json[ApiKeys.type] as? String
             else { return nil }
-        //let dateString = json[ApiKeys.dateOpened] as? String
-        // FEXME:  date formatter
-        let dateOpened = PoinfOfSale.dateToStringFormatter.date(from: json[ApiKeys.dateOpened] as? String ?? "")
-        let dateClosed = PoinfOfSale.dateToStringFormatter.date(from: json[ApiKeys.dateClosed] as? String ?? "")
+        
+        let dateOpenedString = json[ApiKeys.dateOpened] as? String
+        let dateOpened = PoinfOfSale.stringToDateFormatter.date(from: dateOpenedString ?? "")
+        let dateClosed = PoinfOfSale.stringToDateFormatter.date(from: json[ApiKeys.dateClosed] as? String ?? "")
         let address = Address(json:json[ApiKeys.address] as? [String:Any])
         let phone = json[ApiKeys.phone] as? String
         let status = json[PoinfOfSale.ApiKeys.status] as? String
@@ -111,9 +111,15 @@ extension PoinfOfSale {
     static let dateToStringFormatter: DateFormatter = {
         let df = DateFormatter()
         df.locale = Locale(identifier: "ru_RU")
-        df.dateFormat = "dd.MM.yyyy' 'HH:mm:ss"
+        df.dateFormat = "dd.MM.yyyy"
         df.timeZone = TimeZone(secondsFromGMT: 0)
         //let string = df.string(from: date!)
         return df
     }()
+    
+    var dateOpenedString: String {
+        return self.dateOpened != nil
+            ? PoinfOfSale.dateToStringFormatter.string(from: self.dateOpened!)
+            : ""
+    }
 }

@@ -20,6 +20,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var typeLabel: UILabel!
     @IBOutlet weak var phoneLabel: UILabel!
     @IBOutlet weak var statusLabel: UILabel!
+    @IBOutlet weak var dateOpenedLabel: UILabel!
     @IBOutlet weak var addressTextView: UITextView!
     // MARK: Life cycle
     override func viewDidLoad() {
@@ -45,10 +46,11 @@ class ViewController: UIViewController {
         typeLabel.text = pos.type
         phoneLabel.text = pos.phone
         statusLabel.text = pos.status
-        
+        dateOpenedLabel.text = pos.dateOpenedString
+//        print(pos.dateOpened)
         addressTextView.text = """
         Address: \(pos.address?.street ?? "") \(pos.address?.house ?? "")
-        Coordinates (lng; lat): \(pos.address?.gps_lng ?? 0);\(pos.address?.gps_lng ?? 0)
+        Coordinates (lng; lat): \(pos.address?.gps_lng ?? 0);\(pos.address?.gps_lat ?? 0)
         """
     }
 
